@@ -56,19 +56,19 @@
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased">
 
     <!-- Header -->
-    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-4 lg:px-8 py-3">
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-3 lg:px-8 py-2.5">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="p-2.5 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-500">
-                    <i class="fa-solid fa-mug-hot text-xl"></i>
+            <div class="flex items-center gap-2.5">
+                <div class="p-2 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-500">
+                    <i class="fa-solid fa-mug-hot text-lg"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg leading-tight text-slate-100">CaffTrack <span class="text-amber-500 text-xs font-semibold px-2 py-0.5 bg-amber-500/10 border border-amber-500/20 rounded-full ml-1">Multi-Day Life Tracker</span></h1>
-                    <p class="text-xs text-slate-400">Bateman Pharmacokinetic Multi-Day Caffeine Decay & Sleep Predictor</p>
+                    <h1 class="font-bold text-base sm:text-lg leading-tight text-slate-100">CaffTrack <span class="text-amber-500 text-[10px] sm:text-xs font-semibold px-1.5 py-0.5 bg-amber-500/10 border border-amber-500/20 rounded-full ml-1">Multi-Day</span></h1>
+                    <p class="text-[11px] sm:text-xs text-slate-400 hidden sm:block">Bateman Pharmacokinetic Multi-Day Caffeine Decay & Sleep Predictor</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                <div id="liveClock" class="hidden sm:flex items-center gap-2 text-xs font-mono bg-slate-800 border border-slate-700/60 px-3 py-1.5 rounded-lg text-slate-300">
+                <div id="liveClock" class="flex items-center gap-1.5 text-xs font-mono bg-slate-800 border border-slate-700/60 px-2.5 py-1 rounded-lg text-slate-300">
                     <i class="fa-regular fa-clock text-amber-400"></i>
                     <span id="currentTimeStr">--:--:--</span>
                 </div>
@@ -77,146 +77,156 @@
     </header>
 
     <!-- Main Container -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+    <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
 
-        <!-- Top Overview Metric Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Top Overview Metric Cards (2-cols on mobile grid, 4-cols on desktop) -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
             
             <!-- Current Level -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden group hover:border-slate-700 transition">
-                <div class="absolute top-0 right-0 p-4 text-slate-800 group-hover:text-amber-500/10 transition">
-                    <i class="fa-solid fa-bolt text-5xl"></i>
+            <div class="bg-slate-900 border border-slate-800 rounded-xl sm:rounded-2xl p-3 sm:p-5 shadow-lg relative overflow-hidden group hover:border-slate-700 transition flex flex-col justify-between">
+                <div class="absolute top-0 right-0 p-2 sm:p-4 text-slate-800 group-hover:text-amber-500/10 transition">
+                    <i class="fa-solid fa-bolt text-2xl sm:text-5xl"></i>
                 </div>
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Current Caffeine Level</p>
-                <div class="flex items-baseline gap-2">
-                    <span id="currentLevel" class="text-3xl font-extrabold text-amber-400">0</span>
-                    <span class="text-sm font-medium text-slate-400">mg</span>
+                <div>
+                    <p class="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider mb-0.5 sm:mb-1 truncate">Current Caffeine</p>
+                    <div class="flex items-baseline gap-1 sm:gap-2">
+                        <span id="currentLevel" class="text-xl sm:text-3xl font-extrabold text-amber-400">0</span>
+                        <span class="text-xs sm:text-sm font-medium text-slate-400">mg</span>
+                    </div>
                 </div>
-                <div id="currentStatusBadge" class="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    <i class="fa-solid fa-circle-check text-[10px]"></i> Normal / Ready for Sleep
+                <div id="currentStatusBadge" class="mt-2 sm:mt-3 inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 truncate">
+                    <i class="fa-solid fa-circle-check text-[9px] sm:text-[10px]"></i> Normal / Rested
                 </div>
             </div>
 
             <!-- Level at 1:00 AM -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden group hover:border-slate-700 transition">
-                <div class="absolute top-0 right-0 p-4 text-slate-800 group-hover:text-indigo-500/10 transition">
-                    <i class="fa-solid fa-moon text-5xl"></i>
+            <div class="bg-slate-900 border border-slate-800 rounded-xl sm:rounded-2xl p-3 sm:p-5 shadow-lg relative overflow-hidden group hover:border-slate-700 transition flex flex-col justify-between">
+                <div class="absolute top-0 right-0 p-2 sm:p-4 text-slate-800 group-hover:text-indigo-500/10 transition">
+                    <i class="fa-solid fa-moon text-2xl sm:text-5xl"></i>
                 </div>
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Forecast at 1:00 AM Tonight</p>
-                <div class="flex items-baseline gap-2">
-                    <span id="nightLevel" class="text-3xl font-extrabold text-indigo-400">0</span>
-                    <span class="text-sm font-medium text-slate-400">mg</span>
+                <div>
+                    <p class="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider mb-0.5 sm:mb-1 truncate">Forecast 1:00 AM</p>
+                    <div class="flex items-baseline gap-1 sm:gap-2">
+                        <span id="nightLevel" class="text-xl sm:text-3xl font-extrabold text-indigo-400">0</span>
+                        <span class="text-xs sm:text-sm font-medium text-slate-400">mg</span>
+                    </div>
                 </div>
-                <p id="nightStatusDesc" class="mt-3 text-xs text-slate-400 flex items-center gap-1">
-                    <i class="fa-solid fa-info-circle text-slate-500"></i> Below 25 mg threshold
+                <p id="nightStatusDesc" class="mt-2 sm:mt-3 text-[10px] sm:text-xs text-slate-400 flex items-center gap-1 leading-tight">
+                    <i class="fa-solid fa-info-circle text-slate-500 shrink-0"></i> <span class="truncate">Below 25 mg threshold</span>
                 </p>
             </div>
 
             <!-- Ready for Sleep Time -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden group hover:border-slate-700 transition">
-                <div class="absolute top-0 right-0 p-4 text-slate-800 group-hover:text-purple-500/10 transition">
-                    <i class="fa-solid fa-bed text-5xl"></i>
+            <div class="bg-slate-900 border border-slate-800 rounded-xl sm:rounded-2xl p-3 sm:p-5 shadow-lg relative overflow-hidden group hover:border-slate-700 transition flex flex-col justify-between">
+                <div class="absolute top-0 right-0 p-2 sm:p-4 text-slate-800 group-hover:text-purple-500/10 transition">
+                    <i class="fa-solid fa-bed text-2xl sm:text-5xl"></i>
                 </div>
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Sleep Target Readiness</p>
-                <div class="flex items-baseline gap-2">
-                    <span id="sleepReadyTime" class="text-xl font-bold text-purple-400">Now</span>
+                <div>
+                    <p class="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider mb-0.5 sm:mb-1 truncate">Sleep Readiness</p>
+                    <div class="flex items-baseline gap-1 sm:gap-2">
+                        <span id="sleepReadyTime" class="text-sm sm:text-xl font-bold text-purple-400 truncate">Now</span>
+                    </div>
                 </div>
-                <p class="mt-3 text-xs text-slate-400">
-                    Time to drop below target (<span id="thresholdLabelDisplay">25</span> mg)
+                <p class="mt-2 sm:mt-3 text-[10px] sm:text-xs text-slate-400 truncate">
+                    Drop &lt; <span id="thresholdLabelDisplay">50</span> mg target
                 </p>
             </div>
 
             <!-- Sleep Threshold Setting -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden">
-                <div class="flex justify-between items-center mb-2">
-                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Target Sleep Threshold</p>
-                    <button id="infoBtn" class="text-slate-500 hover:text-amber-400 transition" title="Scientific Information">
-                        <i class="fa-solid fa-circle-question"></i>
-                    </button>
+            <div class="bg-slate-900 border border-slate-800 rounded-xl sm:rounded-2xl p-3 sm:p-5 shadow-lg flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <p class="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider truncate">Sleep Target</p>
+                        <button id="infoBtn" class="text-slate-500 hover:text-amber-400 transition" title="Scientific Information">
+                            <i class="fa-solid fa-circle-question text-xs sm:text-sm"></i>
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-lg sm:text-2xl font-bold text-slate-100"><span id="thresholdVal">50</span> <span class="text-[10px] sm:text-xs text-slate-400 font-normal">mg</span></span>
+                        <span class="text-[9px] sm:text-xs px-1.5 py-0.5 rounded bg-slate-800 text-amber-400 border border-slate-700">Sleepable</span>
+                    </div>
                 </div>
-                <div class="flex items-center justify-between mb-1">
-                    <span class="text-2xl font-bold text-slate-100"><span id="thresholdVal">25</span> <span class="text-xs text-slate-400 font-normal">mg</span></span>
-                    <span class="text-xs px-2 py-0.5 rounded bg-slate-800 text-amber-400 border border-slate-700">Sleepable</span>
+                <div>
+                    <input type="range" id="thresholdSlider" min="10" max="100" step="5" value="50" class="w-full accent-amber-500 cursor-pointer h-1 sm:h-1.5 bg-slate-800 rounded-lg">
+                    <p class="text-[9px] sm:text-[11px] text-slate-400 mt-1 sm:mt-2 truncate">
+                        Target residual caffeine level for sleep
+                    </p>
                 </div>
-                <input type="range" id="thresholdSlider" min="10" max="100" step="5" value="25" class="w-full accent-amber-500 cursor-pointer h-1.5 bg-slate-800 rounded-lg">
-                <p class="text-[11px] text-slate-400 mt-2">
-                    Under 25 mg ensures minimal impact on deep sleep.
-                </p>
             </div>
         </div>
 
         <!-- Main Content Area -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
 
             <!-- Left Controls & History Log (5 cols) -->
-            <div class="lg:col-span-5 space-y-6">
+            <div class="lg:col-span-5 space-y-4 sm:space-y-6">
                 
                 <!-- Drink Input Card -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
-                    <h2 class="text-base font-bold text-slate-100 mb-4 flex items-center gap-2">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-lg">
+                    <h2 class="text-sm sm:text-base font-bold text-slate-100 mb-3 sm:mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-calendar-plus text-amber-500"></i> Log Intake
                     </h2>
 
-                    <form id="drinkForm" class="space-y-4">
+                    <form id="drinkForm" class="space-y-3 sm:space-y-4">
                         <!-- Select Drink Type -->
                         <div>
-                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Drink Type</label>
-                            <select id="drinkSelect" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-amber-500 transition">
-                                <option value="hk_milk_tea" data-mg="170" selected>🇭🇰 Hong Kong Milk Tea (~170 mg)</option>
+                            <label class="block text-[11px] sm:text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Drink Type</label>
+                            <select id="drinkSelect" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-100 focus:outline-none focus:border-amber-500 transition">
+                                <option value="hk_milk_tea" data-mg="170" selected>🍵 Hong Kong Milk Tea (~170 mg)</option>
                                 <option value="americano" data-mg="150">☕ Americano (~150 mg)</option>
                                 <option value="hk_lemon_tea" data-mg="100">🍋 Hong Kong Lemon Tea (~100 mg)</option>
                                 <option value="latte" data-mg="75">🥛 Latte (~75 mg)</option>
-                                <option value="red_tea" data-mg="50">☕ Red Tea (~50 mg)</option>
+                                <option value="red_tea" data-mg="50">🫖 Red Tea (~50 mg)</option>
                                 <option value="green_tea" data-mg="30">🍵 Green Tea (~30 mg)</option>
                                 <option value="custom" data-mg="100">⚙️ Custom Caffeine Amount</option>
                             </select>
                         </div>
 
                         <!-- Caffeine Dose & Servings Input -->
-                        <div class="grid grid-cols-2 gap-3">
+                        <div class="grid grid-cols-2 gap-2.5 sm:gap-3">
                             <div>
-                                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Caffeine (mg/cup)</label>
-                                <input type="number" id="caffeineMgInput" value="170" min="1" max="1000" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+                                <label class="block text-[11px] sm:text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Caffeine (mg/cup)</label>
+                                <input type="number" id="caffeineMgInput" value="170" min="1" max="1000" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm text-slate-100 focus:outline-none focus:border-amber-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Quantity (Cups)</label>
-                                <input type="number" id="servingsInput" value="1" min="0.25" max="10" step="0.25" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+                                <label class="block text-[11px] sm:text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Quantity (Cups)</label>
+                                <input type="number" id="servingsInput" value="1" min="0.25" max="10" step="0.25" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm text-slate-100 focus:outline-none focus:border-amber-500">
                             </div>
                         </div>
 
                         <!-- Separate Date & Time Picker Inputs -->
-                        <div class="grid grid-cols-2 gap-3">
+                        <div class="grid grid-cols-2 gap-2.5 sm:gap-3">
                             <div>
-                                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Date</label>
-                                <input type="date" id="drinkDateInput" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+                                <label class="block text-[11px] sm:text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Date</label>
+                                <input type="date" id="drinkDateInput" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm text-slate-100 focus:outline-none focus:border-amber-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Time</label>
-                                <input type="time" id="drinkTimeInput" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+                                <label class="block text-[11px] sm:text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Time</label>
+                                <input type="time" id="drinkTimeInput" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm text-slate-100 focus:outline-none focus:border-amber-500">
                             </div>
                         </div>
 
                         <!-- Quick Time Presets -->
-                        <div class="flex justify-between items-center text-xs text-slate-400 pt-1">
-                            <span>Quick Set:</span>
+                        <div class="flex justify-between items-center text-xs text-slate-400 pt-0.5">
+                            <span class="text-[11px] text-slate-400">Quick Set:</span>
                             <div class="flex gap-1">
-                                <button type="button" id="timeNowBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2.5 py-1 rounded-lg border border-slate-700">Now</button>
-                                <button type="button" id="time1HrAgoBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2.5 py-1 rounded-lg border border-slate-700">-1 hr</button>
-                                <button type="button" id="timeMorningBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2.5 py-1 rounded-lg border border-slate-700">8:30 AM</button>
+                                <button type="button" id="timeNowBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2 py-0.5 rounded-lg border border-slate-700 text-[11px]">Now</button>
+                                <button type="button" id="time1HrAgoBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2 py-0.5 rounded-lg border border-slate-700 text-[11px]">-1 hr</button>
+                                <button type="button" id="timeMorningBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2 py-0.5 rounded-lg border border-slate-700 text-[11px]">8:30 AM</button>
                             </div>
                         </div>
 
                         <!-- Submit Button -->
-                        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-slate-950 font-bold py-2.5 px-4 rounded-xl shadow-lg transition duration-150 flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-plus"></i> Add Intake to History Log
+                        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-slate-950 font-bold py-2 sm:py-2.5 px-4 rounded-xl shadow-lg transition duration-150 flex items-center justify-center gap-2 text-xs sm:text-sm">
+                            <i class="fa-solid fa-plus"></i> Add Intake to Log
                         </button>
                     </form>
                 </div>
 
                 <!-- Logged Drinks List / History Table -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-lg space-y-3">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                        <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+                        <h3 class="text-xs sm:text-sm font-bold text-slate-200 flex items-center gap-2">
                             <i class="fa-solid fa-clock-rotate-left text-amber-500"></i> Consumption History
                         </h3>
                         <div class="flex items-center gap-2 w-full sm:w-auto">
@@ -226,7 +236,7 @@
                         </div>
                     </div>
 
-                    <div class="overflow-y-auto max-h-[280px] pr-1">
+                    <div class="overflow-y-auto max-h-[250px] sm:max-h-[280px] pr-1">
                         <div id="drinksList" class="space-y-2">
                             <!-- Dynamic Content -->
                         </div>
@@ -236,65 +246,65 @@
             </div>
 
             <!-- Right Chart & Math Model Area (7 cols) -->
-            <div class="lg:col-span-7 space-y-6">
+            <div class="lg:col-span-7 space-y-4 sm:space-y-6">
                 
                 <!-- Chart Container Card -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex flex-col justify-between">
-                    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-lg flex flex-col justify-between">
+                    <div class="flex flex-wrap items-center justify-between gap-2.5 mb-3 sm:mb-4">
                         <div>
-                            <h2 class="text-base font-bold text-slate-100 flex items-center gap-2">
+                            <h2 class="text-sm sm:text-base font-bold text-slate-100 flex items-center gap-2">
                                 <i class="fa-solid fa-chart-line text-amber-500"></i> Time-Series Pharmacokinetic Plot
                             </h2>
-                            <p class="text-xs text-slate-400">Actual (Past) vs. Forecasted (Future) Levels</p>
+                            <p class="text-[11px] sm:text-xs text-slate-400">Actual (Past) vs. Forecasted (Future) Levels</p>
                         </div>
                         
                         <!-- Timeline Range Selector -->
-                        <div class="flex items-center gap-2 bg-slate-800 p-1 rounded-xl border border-slate-700/80 text-xs">
-                            <span class="text-slate-400 text-[11px] pl-2 font-medium">Window:</span>
-                            <button id="window48Btn" class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-bold transition">48h (Yesterday - Tomorrow)</button>
-                            <button id="windowTodayBtn" class="px-2.5 py-1 rounded-lg text-slate-300 hover:text-white transition">Today to Tomorrow</button>
+                        <div class="flex items-center gap-1.5 bg-slate-800 p-1 rounded-xl border border-slate-700/80 text-xs">
+                            <span class="text-slate-400 text-[10px] sm:text-[11px] pl-1 font-medium hidden sm:inline">Window:</span>
+                            <button id="window48Btn" class="px-2 py-1 rounded-lg bg-amber-500 text-slate-950 text-[11px] sm:text-xs font-bold transition">48h (Yesterday - Tomorrow)</button>
+                            <button id="windowTodayBtn" class="px-2 py-1 rounded-lg text-slate-300 hover:text-white text-[11px] sm:text-xs transition">Today to Tomorrow</button>
                         </div>
                     </div>
 
                     <!-- Canvas Container -->
-                    <div class="relative w-full h-[320px] sm:h-[380px]">
+                    <div class="relative w-full h-[280px] sm:h-[380px]">
                         <canvas id="caffeineChart"></canvas>
                     </div>
 
                     <!-- Chart Footer Legend -->
-                    <div class="mt-4 pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
-                        <div class="flex items-center gap-4">
-                            <span class="flex items-center gap-1.5 text-slate-300">
+                    <div class="mt-3 sm:mt-4 pt-2.5 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
+                        <div class="flex items-center gap-3">
+                            <span class="flex items-center gap-1.5 text-slate-300 text-[11px] sm:text-xs">
                                 <span class="w-3 h-1 bg-amber-500 rounded-full inline-block"></span> Actual (Past)
                             </span>
-                            <span class="flex items-center gap-1.5 text-slate-300">
+                            <span class="flex items-center gap-1.5 text-slate-300 text-[11px] sm:text-xs">
                                 <span class="w-3 h-1 bg-indigo-400 rounded-full inline-block border-b border-dashed border-indigo-400"></span> Forecast (Future)
                             </span>
                         </div>
-                        <div class="flex items-center gap-1.5">
+                        <div class="flex items-center gap-1.5 text-[11px] sm:text-xs">
                             <span class="w-2.5 h-2.5 rounded-full bg-purple-500/30 border border-purple-400 inline-block"></span>
-                            <span>Target Threshold: <strong><span id="chartThresholdText">25</span> mg</strong></span>
+                            <span>Target: <strong><span id="chartThresholdText">50</span> mg</strong></span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Equations & Scientific Model Explanation Card -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
-                    <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-lg space-y-3">
+                    <h3 class="text-xs sm:text-sm font-bold text-slate-200 flex items-center gap-2">
                         <i class="fa-solid fa-square-root-variable text-amber-500"></i> Bateman Pharmacokinetic Model
                     </h3>
                     
                     <!-- KaTeX Block Display for Formula -->
-                    <div id="katexFormulaBlock" class="p-3 bg-slate-950/80 border border-slate-800 rounded-xl text-center overflow-x-auto text-amber-400">
+                    <div id="katexFormulaBlock" class="p-2.5 sm:p-3 bg-slate-950/80 border border-slate-800 rounded-xl text-center overflow-x-auto text-amber-400 text-xs sm:text-base">
                         <!-- Rendered by KaTeX -->
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-400 leading-relaxed pt-1">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 text-xs text-slate-400 leading-relaxed pt-1">
                         <div>
-                            <p><strong class="text-slate-200">Absorption ($k_a = 2.0\text{ hr}^{-1}$):</strong> Simulates gastrointestinal absorption peaking around $T_{\max} \approx 30\text{--}45$ minutes after ingestion.</p>
+                            <p><strong class="text-slate-200">Absorption (<span id="katexKa"></span>):</strong> Simulates GI tract absorption peaking around <span id="katexTmax"></span> after ingestion.</p>
                         </div>
                         <div>
-                            <p><strong class="text-slate-200">Elimination ($k_e = 0.1386\text{ hr}^{-1}$):</strong> Models hepatic first-order clearance using standard 5.0 hour half-life ($t_{1/2}$).</p>
+                            <p><strong class="text-slate-200">Elimination (<span id="katexKe"></span>):</strong> Models first-order clearance with standard 5.0h half-life (<span id="katexT2"></span>).</p>
                         </div>
                     </div>
                 </div>
@@ -339,10 +349,20 @@
             
             <form id="editDrinkForm" class="space-y-3 pt-2">
                 <input type="hidden" id="editDrinkId">
+                
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Drink Name</label>
-                    <input type="text" id="editDrinkNameInput" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500" required>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Drink Type</label>
+                    <select id="editDrinkSelect" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500 transition">
+                        <option value="hk_milk_tea" data-mg="170">🍵 Hong Kong Milk Tea (~170 mg)</option>
+                        <option value="americano" data-mg="150">☕ Americano (~150 mg)</option>
+                        <option value="hk_lemon_tea" data-mg="100">🍋 Hong Kong Lemon Tea (~100 mg)</option>
+                        <option value="latte" data-mg="75">🥛 Latte (~75 mg)</option>
+                        <option value="red_tea" data-mg="50">🫖 Red Tea (~50 mg)</option>
+                        <option value="green_tea" data-mg="30">🍵 Green Tea (~30 mg)</option>
+                        <option value="custom" data-mg="100">⚙️ Custom Caffeine Amount</option>
+                    </select>
                 </div>
+
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Caffeine (mg/cup)</label>
@@ -384,7 +404,7 @@
         const KE = Math.LN2 / HALF_LIFE; // ~0.1386 hr^-1
         const KA = 2.0; // absorption rate constant (~0.5h to peak)
 
-        let targetThreshold = 25; // default mg threshold
+        let targetThreshold = 50; // default mg threshold
         let selectedWindow = '48h'; // '48h' or 'today'
         let chartInstance = null;
 
@@ -498,25 +518,25 @@
                 const timeFormatted = dObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
                 return `
-                    <div class="flex items-center justify-between p-3 bg-slate-800/60 border border-slate-700/50 rounded-xl hover:border-slate-600 transition">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xs font-bold">
+                    <div class="flex items-center justify-between p-2.5 sm:p-3 bg-slate-800/60 border border-slate-700/50 rounded-xl hover:border-slate-600 transition">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xs font-bold">
                                 ${d.quantity}x
                             </div>
                             <div>
                                 <div class="text-xs font-bold text-slate-200">${d.name}</div>
-                                <div class="text-[11px] text-slate-400">
-                                    <span class="text-slate-300">${dateFormatted} at ${timeFormatted}</span> • 
+                                <div class="text-[10px] sm:text-[11px] text-slate-400">
+                                    <span class="text-slate-300">${dateFormatted} ${timeFormatted}</span> • 
                                     <span class="text-amber-400/90 font-medium">${d.mg * d.quantity} mg</span>
                                 </div>
                             </div>
                         </div>
                         <div class="flex items-center gap-1">
-                            <button onclick="openEditModal(${d.id})" class="text-slate-500 hover:text-amber-400 p-1.5 transition" title="Edit Entry">
-                                <i class="fa-solid fa-pen-to-square text-sm"></i>
+                            <button onclick="openEditModal(${d.id})" class="text-slate-500 hover:text-amber-400 p-1 sm:p-1.5 transition" title="Edit Entry">
+                                <i class="fa-solid fa-pen-to-square text-xs sm:text-sm"></i>
                             </button>
-                            <button onclick="removeDrink(${d.id})" class="text-slate-500 hover:text-rose-400 p-1.5 transition" title="Delete Entry">
-                                <i class="fa-solid fa-xmark text-sm"></i>
+                            <button onclick="removeDrink(${d.id})" class="text-slate-500 hover:text-rose-400 p-1 sm:p-1.5 transition" title="Delete Entry">
+                                <i class="fa-solid fa-xmark text-xs sm:text-sm"></i>
                             </button>
                         </div>
                     </div>
@@ -537,7 +557,23 @@
             const dObj = new Date(drink.time);
 
             document.getElementById('editDrinkId').value = drink.id;
-            document.getElementById('editDrinkNameInput').value = drink.name;
+            
+            // Sync drink dropdown selection in edit modal
+            const editSelect = document.getElementById('editDrinkSelect');
+            let matched = false;
+            for (let i = 0; i < editSelect.options.length; i++) {
+                const optText = editSelect.options[i].text.split('(~')[0].replace(/^[^\w\s]+/, '').trim();
+                const dNameClean = drink.name.replace(/^[^\w\s]+/, '').trim();
+                if (optText === dNameClean) {
+                    editSelect.selectedIndex = i;
+                    matched = true;
+                    break;
+                }
+            }
+            if (!matched) {
+                editSelect.value = 'custom';
+            }
+
             document.getElementById('editCaffeineMgInput').value = drink.mg;
             document.getElementById('editServingsInput').value = drink.quantity;
             document.getElementById('editDrinkDateInput').value = getLocalDateString(dObj);
@@ -567,19 +603,17 @@
             // Current Status Badge
             const badgeEl = document.getElementById('currentStatusBadge');
             if (currentMg < 25) {
-                badgeEl.className = "mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
-                badgeEl.innerHTML = `<i class="fa-solid fa-circle-check text-[10px]"></i> Normal / Rested`;
+                badgeEl.className = "mt-2 sm:mt-3 inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 truncate";
+                badgeEl.innerHTML = `<i class="fa-solid fa-circle-check text-[9px] sm:text-[10px]"></i> Rested`;
             } else if (currentMg < 100) {
-                badgeEl.className = "mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20";
-                badgeEl.innerHTML = `<i class="fa-solid fa-bolt text-[10px]"></i> Mildly Stimulated`;
+                badgeEl.className = "mt-2 sm:mt-3 inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20 truncate";
+                badgeEl.innerHTML = `<i class="fa-solid fa-bolt text-[9px] sm:text-[10px]"></i> Mild Alert`;
             } else {
-                badgeEl.className = "mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-rose-500/10 text-rose-400 border border-rose-500/20";
-                badgeEl.innerHTML = `<i class="fa-solid fa-fire text-[10px]"></i> Highly Stimulated`;
+                badgeEl.className = "mt-2 sm:mt-3 inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium bg-rose-500/10 text-rose-400 border border-rose-500/20 truncate";
+                badgeEl.innerHTML = `<i class="fa-solid fa-fire text-[9px] sm:text-[10px]"></i> High Alert`;
             }
 
-            // 2. Tonight at 1:00 AM Forecast (BUG FIXED)
-            // If current time is between 00:00 and 04:59 AM, '1:00 AM Tonight' is today at 01:00 AM.
-            // If current time is >= 05:00 AM, '1:00 AM Tonight' is tomorrow morning at 01:00 AM.
+            // 2. Tonight at 1:00 AM Forecast
             const target1AmDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 1, 0, 0, 0);
             if (now.getHours() >= 5) {
                 target1AmDate.setDate(target1AmDate.getDate() + 1);
@@ -590,9 +624,9 @@
 
             const nightDesc = document.getElementById('nightStatusDesc');
             if (nightMg <= targetThreshold) {
-                nightDesc.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> Below ${targetThreshold} mg threshold (Good for sleep)`;
+                nightDesc.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 shrink-0"></i> <span class="truncate">&lt; ${targetThreshold} mg (Good)</span>`;
             } else {
-                nightDesc.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Above ${targetThreshold} mg (May disrupt sleep)`;
+                nightDesc.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-400 shrink-0"></i> <span class="truncate">&gt; ${targetThreshold} mg (Disruptive)</span>`;
             }
 
             // 3. Sleep Ready Time (< Target Threshold)
@@ -602,12 +636,10 @@
 
             if (currentMg <= targetThreshold) {
                 sleepReadyEl.innerText = "Already Below";
-                sleepReadyEl.className = "text-2xl font-bold text-emerald-400";
+                sleepReadyEl.className = "text-sm sm:text-xl font-bold text-emerald-400 truncate";
             } else {
-                // Search future minutes until caffeine < targetThreshold
                 let searchTime = new Date(now.getTime());
                 let found = false;
-                // Max search up to 48 hours
                 for (let step = 0; step < 48 * 60; step += 15) { 
                     searchTime = new Date(now.getTime() + step * 60 * 1000);
                     if (getTotalCaffeineAt(searchTime.toISOString()) <= targetThreshold) {
@@ -620,10 +652,10 @@
                     const isTomorrow = searchTime.getDate() !== now.getDate();
                     const timeString = searchTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
                     sleepReadyEl.innerText = (isTomorrow ? 'Tomorrow ' : 'Tonight ') + timeString;
-                    sleepReadyEl.className = "text-2xl font-bold text-purple-400";
+                    sleepReadyEl.className = "text-sm sm:text-xl font-bold text-purple-400 truncate";
                 } else {
                     sleepReadyEl.innerText = "Late Tomorrow";
-                    sleepReadyEl.className = "text-2xl font-bold text-slate-400";
+                    sleepReadyEl.className = "text-sm sm:text-xl font-bold text-slate-400 truncate";
                 }
             }
         }
@@ -642,7 +674,7 @@
                         {
                             label: 'Caffeine Level',
                             data: [],
-                            borderColor: '#f59e0b', // Amber-500
+                            borderColor: '#f59e0b',
                             backgroundColor: (context) => {
                                 const chart = context.chart;
                                 const {ctx, chartArea} = chart;
@@ -657,7 +689,6 @@
                             tension: 0.3,
                             pointRadius: 0,
                             pointHoverRadius: 6,
-                            // Use segment styling to render past as solid amber and future as dashed indigo
                             segment: {
                                 borderColor: ctx => ctx.p0.parsed.x > Date.now() ? '#818cf8' : '#f59e0b',
                                 borderDash: ctx => ctx.p0.parsed.x > Date.now() ? [5, 5] : undefined
@@ -666,7 +697,7 @@
                         {
                             label: 'Sleep Threshold',
                             data: [],
-                            borderColor: '#a855f7', // Purple-500
+                            borderColor: '#a855f7',
                             borderDash: [2, 2],
                             borderWidth: 1.5,
                             pointRadius: 0,
@@ -755,11 +786,9 @@
             let startTime, endTime;
 
             if (selectedWindow === '48h') {
-                // Yesterday 00:00 to Tomorrow 23:59 (48h+ window)
                 startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1, 0, 0, 0, 0);
                 endTime = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 23, 59, 0, 0);
             } else {
-                // Today 00:00 to Tomorrow 12:00
                 startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
                 endTime = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 12, 0, 0, 0);
             }
@@ -767,7 +796,7 @@
             const caffeinedata = [];
             const thresholdData = [];
 
-            const stepMs = 20 * 60 * 1000; // 20 min sample resolution
+            const stepMs = 20 * 60 * 1000;
             let current = new Date(startTime.getTime());
 
             while (current <= endTime) {
@@ -791,7 +820,6 @@
         // -------------------------------------------------------------
 
         function setupEventListeners() {
-            // Drink select option listener
             const drinkSelect = document.getElementById('drinkSelect');
             const caffeineMgInput = document.getElementById('caffeineMgInput');
 
@@ -803,7 +831,17 @@
                 }
             });
 
-            // Set initial Date and Time inputs to current date/time
+            const editDrinkSelect = document.getElementById('editDrinkSelect');
+            const editCaffeineMgInput = document.getElementById('editCaffeineMgInput');
+
+            editDrinkSelect.addEventListener('change', (e) => {
+                const selectedOption = e.target.options[e.target.selectedIndex];
+                const defaultMg = selectedOption.getAttribute('data-mg');
+                if (defaultMg) {
+                    editCaffeineMgInput.value = defaultMg;
+                }
+            });
+
             function resetDateTimeInputs() {
                 const now = new Date();
                 document.getElementById('drinkDateInput').value = getLocalDateString(now);
@@ -811,7 +849,6 @@
             }
             resetDateTimeInputs();
 
-            // Quick Time Preset Buttons
             document.getElementById('timeNowBtn').addEventListener('click', resetDateTimeInputs);
             
             document.getElementById('time1HrAgoBtn').addEventListener('click', () => {
@@ -827,12 +864,12 @@
                 document.getElementById('drinkTimeInput').value = "08:30";
             });
 
-            // Form Submit Listener
             document.getElementById('drinkForm').addEventListener('submit', (e) => {
                 e.preventDefault();
 
                 const selectEl = document.getElementById('drinkSelect');
-                const drinkName = selectEl.options[selectEl.selectedIndex].text.split('(~')[0].trim();
+                const rawText = selectEl.options[selectEl.selectedIndex].text.split('(~')[0];
+                const drinkName = rawText.replace(/^[^\w\s]+/, '').trim();
                 const mg = parseFloat(caffeineMgInput.value) || 100;
                 const quantity = parseFloat(document.getElementById('servingsInput').value) || 1;
                 
@@ -855,21 +892,18 @@
                 refreshDashboard();
             });
 
-            // Filter by Date
             document.getElementById('filterDateInput').addEventListener('change', renderDrinksList);
             document.getElementById('clearFilterBtn').addEventListener('click', () => {
                 document.getElementById('filterDateInput').value = '';
                 renderDrinksList();
             });
 
-            // Clear All History
             document.getElementById('clearAllBtn').addEventListener('click', () => {
                 drinks = [];
                 saveDrinks();
                 refreshDashboard();
             });
 
-            // Threshold Slider
             const slider = document.getElementById('thresholdSlider');
             const thresholdValDisplay = document.getElementById('thresholdVal');
 
@@ -879,25 +913,23 @@
                 refreshDashboard();
             });
 
-            // Window Toggle Buttons
             const win48Btn = document.getElementById('window48Btn');
             const winTodayBtn = document.getElementById('windowTodayBtn');
 
             win48Btn.addEventListener('click', () => {
                 selectedWindow = '48h';
-                win48Btn.className = "px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-bold transition";
-                winTodayBtn.className = "px-2.5 py-1 rounded-lg text-slate-300 hover:text-white transition";
+                win48Btn.className = "px-2 py-1 rounded-lg bg-amber-500 text-slate-950 text-[11px] sm:text-xs font-bold transition";
+                winTodayBtn.className = "px-2 py-1 rounded-lg text-slate-300 hover:text-white text-[11px] sm:text-xs transition";
                 updateChart();
             });
 
             winTodayBtn.addEventListener('click', () => {
                 selectedWindow = 'today';
-                winTodayBtn.className = "px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-bold transition";
-                win48Btn.className = "px-2.5 py-1 rounded-lg text-slate-300 hover:text-white transition";
+                winTodayBtn.className = "px-2 py-1 rounded-lg bg-amber-500 text-slate-950 text-[11px] sm:text-xs font-bold transition";
+                win48Btn.className = "px-2 py-1 rounded-lg text-slate-300 hover:text-white text-[11px] sm:text-xs transition";
                 updateChart();
             });
 
-            // Edit Modal Event Listeners
             document.getElementById('closeEditModalBtn').addEventListener('click', closeEditModal);
             document.getElementById('cancelEditBtn').addEventListener('click', closeEditModal);
 
@@ -905,19 +937,21 @@
                 e.preventDefault();
 
                 const id = parseInt(document.getElementById('editDrinkId').value);
-                const name = document.getElementById('editDrinkNameInput').value.trim();
+                const selectEl = document.getElementById('editDrinkSelect');
+                const rawText = selectEl.options[selectEl.selectedIndex].text.split('(~')[0];
+                const drinkName = rawText.replace(/^[^\w\s]+/, '').trim();
                 const mg = parseFloat(document.getElementById('editCaffeineMgInput').value) || 0;
                 const quantity = parseFloat(document.getElementById('editServingsInput').value) || 1;
                 const dateVal = document.getElementById('editDrinkDateInput').value;
                 const timeVal = document.getElementById('editDrinkTimeInput').value;
 
-                if (!id || !name || !dateVal || !timeVal) return;
+                if (!id || !drinkName || !dateVal || !timeVal) return;
 
                 const drinkIndex = drinks.findIndex(d => d.id === id);
                 if (drinkIndex !== -1) {
                     drinks[drinkIndex] = {
                         id: id,
-                        name: name,
+                        name: drinkName,
                         mg: mg,
                         quantity: quantity,
                         time: `${dateVal}T${timeVal}:00`
@@ -929,7 +963,6 @@
                 }
             });
 
-            // Modal Controls
             const infoBtn = document.getElementById('infoBtn');
             const infoModal = document.getElementById('infoModal');
             const closeModalBtn = document.getElementById('closeModalBtn');
@@ -945,13 +978,18 @@
             modalOkBtn.addEventListener('click', () => toggleModal(false));
         }
 
-        // Render KaTeX Math Block
         function renderMath() {
             katex.render(
                 "C(t) = \\frac{D \\cdot k_a}{k_a - k_e} \\left( e^{-k_e \\cdot t} - e^{-k_a \\cdot t} \\right)",
                 document.getElementById('katexFormulaBlock'),
                 { displayMode: true, throwOnError: false }
             );
+
+            // Explicitly render inline parameter math snippets
+            katex.render("k_a = 2.0\\text{ hr}^{-1}", document.getElementById('katexKa'), { throwOnError: false });
+            katex.render("T_{\\max} \\approx 30\\text{--}45\\text{ min}", document.getElementById('katexTmax'), { throwOnError: false });
+            katex.render("k_e = 0.1386\\text{ hr}^{-1}", document.getElementById('katexKe'), { throwOnError: false });
+            katex.render("t_{1/2}", document.getElementById('katexT2'), { throwOnError: false });
         }
 
         // -------------------------------------------------------------
@@ -964,9 +1002,8 @@
             setupEventListeners();
             refreshDashboard();
 
-            // Timers for clock and dynamic chart updating
             setInterval(updateClock, 1000);
-            setInterval(refreshDashboard, 60000); // refresh metrics every minute
+            setInterval(refreshDashboard, 60000);
             updateClock();
         };
     </script>
