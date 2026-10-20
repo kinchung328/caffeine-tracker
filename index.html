@@ -795,29 +795,46 @@
                     plugins: {
                         legend: { display: false },
                         tooltip: {
-                            backgroundColor: '#0f172a',
-                            titleColor: '#f8fafc',
-                            bodyColor: '#cbd5e1',
-                            borderColor: '#334155',
-                            borderWidth: 1,
-                            padding: 10,
-                            callbacks: {
-                                title: function(context) {
-                                    if (context.length) {
-                                        const date = new Date(context[0].parsed.x);
-                                        return date.toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-                                    }
-                                    return '';
-                                },
-                                label: function(context) {
-                                    if (context.datasetIndex === 0) {
-                                        const nowMs = Date.now();
-                                        const isPast = context.parsed.x <= nowMs;
-                                        const labelType = isPast ? 'Actual Level (Past)' : 'Forecast Level (Future)';
-                                        return `${labelType}: ${Math.round(context.parsed.y)} mg`;
-                                    }
-                                    return `${context.dataset.label}: ${Math.round(context.parsed.y)} mg`;
+                            enabled: false,
+                            external: function(context) {
+                                // Tooltip Element
+                                let tooltipEl = document.getElementById('chartjs-tooltip');
+
+                                // Create element on first render
+                                if (!tooltipEl) {
+                                    tooltipEl = document.createElement('div');
+                                    tooltipEl.id = 'chartjs-tooltip';
+                                    tooltipEl.className = 'absolute top-2 right-2 bg-slate-950/90 border border-slate-700/80 rounded-lg p-2 text-xs shadow-xl pointer-events-none z-10 backdrop-blur-sm transition-opacity duration-150';
+                                    context.chart.canvas.parentNode.appendChild(tooltipEl);
                                 }
+
+                                const tooltipModel = context.tooltip;
+                                if (tooltipModel.opacity === 0) {
+                                    tooltipEl.style.opacity = '0';
+                                    return;
+                                }
+
+                                if (tooltipModel.body) {
+                                    const titleLines = tooltipModel.title || [];
+                                    const bodyLines = tooltipModel.body.map(b => b.lines);
+
+                                    let innerHtml = '<div class="font-bold text-amber-400 mb-0.5 border-b border-slate-800 pb-0.5 text-[11px]">';
+                                    titleLines.forEach(function(title) {
+                                        innerHtml += title;
+                                    });
+                                    innerHtml += '</div><div class="space-y-0.5 text-[11px]">';
+
+                                    bodyLines.forEach(function(body, i) {
+                                        const colors = tooltipModel.labelColors[i];
+                                        const style = 'background:' + colors.borderColor + '; border-color:' + colors.borderColor + '; width: 8px; height: 8px; display: inline-block; border-radius: 50%; margin-right: 4px;';
+                                        innerHtml += '<div class="flex items-center text-slate-200"><span style="' + style + '"></span>' + body + '</div>';
+                                    });
+                                    innerHtml += '</div>';
+
+                                    tooltipEl.innerHTML = innerHtml;
+                                }
+
+                                tooltipEl.style.opacity = '1';
                             }
                         }
                     }
