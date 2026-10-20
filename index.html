@@ -208,11 +208,11 @@
 
                         <!-- Quick Time Presets -->
                         <div class="flex justify-between items-center text-xs text-slate-400 pt-0.5">
-                            <span class="text-[11px] text-slate-400">Quick Set:</span>
+                            <span class="text-[11px] text-slate-400">Quick Adjust:</span>
                             <div class="flex gap-1">
                                 <button type="button" id="timeNowBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2 py-0.5 rounded-lg border border-slate-700 text-[11px]">Now</button>
-                                <button type="button" id="time1HrAgoBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2 py-0.5 rounded-lg border border-slate-700 text-[11px]">-1 hr</button>
-                                <button type="button" id="timeMorningBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2 py-0.5 rounded-lg border border-slate-700 text-[11px]">8:30 AM</button>
+                                <button type="button" id="timeMinus1HrBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2 py-0.5 rounded-lg border border-slate-700 text-[11px]">-1 hr</button>
+                                <button type="button" id="timePlus1HrBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2 py-0.5 rounded-lg border border-slate-700 text-[11px]">+1 hr</button>
                             </div>
                         </div>
 
@@ -281,9 +281,14 @@
                                 <span class="w-3 h-1 bg-indigo-400 rounded-full inline-block border-b border-dashed border-indigo-400"></span> Forecast (Future)
                             </span>
                         </div>
-                        <div class="flex items-center gap-1.5 text-[11px] sm:text-xs">
-                            <span class="w-2.5 h-2.5 rounded-full bg-purple-500/30 border border-purple-400 inline-block"></span>
-                            <span>Target: <strong><span id="chartThresholdText">50</span> mg</strong></span>
+                        <div class="flex items-center gap-3 text-[11px] sm:text-xs">
+                            <span class="flex items-center gap-1 text-slate-400">
+                                <span class="w-2.5 h-0.5 bg-indigo-500/80 inline-block"></span> 1:00 AM Night
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <span class="w-2.5 h-2.5 rounded-full bg-purple-500/30 border border-purple-400 inline-block"></span>
+                                Target: <strong><span id="chartThresholdText">50</span> mg</strong>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -664,11 +669,52 @@
         // 4. Time-Series Chart Setup (Chart.js + Luxon Adapter)
         // -------------------------------------------------------------
 
+        // Plugin to draw custom vertical lines at 1:00 AM on the chart
+        const nightLinePlugin = {
+            id: 'nightLinePlugin',
+            afterDraw: (chart) => {
+                const { ctx, chartArea: { top, bottom }, scales: { x } } = chart;
+                if (!x) return;
+
+                const minDate = new Date(x.min);
+                const maxDate = new Date(x.max);
+
+                // Start from the min date at 1:00 AM
+                let runner = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate(), 1, 0, 0, 0);
+                if (runner.getTime() < minDate.getTime()) {
+                    runner.setDate(runner.getDate() + 1);
+                }
+
+                ctx.save();
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([4, 4]);
+                ctx.strokeStyle = 'rgba(129, 140, 248, 0.45)'; // Semi-transparent Indigo accent line
+
+                while (runner.getTime() <= maxDate.getTime()) {
+                    const xPixel = x.getPixelForValue(runner.getTime());
+                    if (xPixel >= chart.chartArea.left && xPixel <= chart.chartArea.right) {
+                        ctx.beginPath();
+                        ctx.moveTo(xPixel, top);
+                        ctx.lineTo(xPixel, bottom);
+                        ctx.stroke();
+
+                        // Label "1:00 AM" near the top of the vertical line
+                        ctx.fillStyle = '#a5b4fc';
+                        ctx.font = '10px "Plus Jakarta Sans", sans-serif';
+                        ctx.fillText('1:00 AM', xPixel + 3, top + 12);
+                    }
+                    runner.setDate(runner.getDate() + 1);
+                }
+                ctx.restore();
+            }
+        };
+
         function initChart() {
             const ctx = document.getElementById('caffeineChart').getContext('2d');
 
             chartInstance = new Chart(ctx, {
                 type: 'line',
+                plugins: [nightLinePlugin],
                 data: {
                     datasets: [
                         {
@@ -849,19 +895,32 @@
             }
             resetDateTimeInputs();
 
+            // Helper to shift input time by +/- hours (supports multiple clicks)
+            function adjustTimeByHours(hours) {
+                const dateVal = document.getElementById('drinkDateInput').value;
+                const timeVal = document.getElementById('drinkTimeInput').value;
+                
+                let currentDateTime;
+                if (dateVal && timeVal) {
+                    currentDateTime = new Date(`${dateVal}T${timeVal}:00`);
+                } else {
+                    currentDateTime = new Date();
+                }
+
+                currentDateTime.setHours(currentDateTime.getHours() + hours);
+
+                document.getElementById('drinkDateInput').value = getLocalDateString(currentDateTime);
+                document.getElementById('drinkTimeInput').value = getLocalTimeString(currentDateTime);
+            }
+
             document.getElementById('timeNowBtn').addEventListener('click', resetDateTimeInputs);
             
-            document.getElementById('time1HrAgoBtn').addEventListener('click', () => {
-                const now = new Date();
-                now.setHours(now.getHours() - 1);
-                document.getElementById('drinkDateInput').value = getLocalDateString(now);
-                document.getElementById('drinkTimeInput').value = getLocalTimeString(now);
+            document.getElementById('timeMinus1HrBtn').addEventListener('click', () => {
+                adjustTimeByHours(-1);
             });
 
-            document.getElementById('timeMorningBtn').addEventListener('click', () => {
-                const now = new Date();
-                document.getElementById('drinkDateInput').value = getLocalDateString(now);
-                document.getElementById('drinkTimeInput').value = "08:30";
+            document.getElementById('timePlus1HrBtn').addEventListener('click', () => {
+                adjustTimeByHours(1);
             });
 
             document.getElementById('drinkForm').addEventListener('submit', (e) => {
